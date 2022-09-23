@@ -34,6 +34,7 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel modelo2 = new DefaultComboBoxModel(ac.getListaCarros().toArray());
         
         CB_Cars.setModel(modelo2);
+        CB_SelecC.setModel(modelo2);
         
         DefaultTableModel model = (DefaultTableModel) ListaCarros.getModel();
         model.setRowCount(0);
@@ -85,8 +86,8 @@ public class Main extends javax.swing.JFrame {
         TF_MarcaMod = new javax.swing.JTextField();
         TF_ModeloMod = new javax.swing.JTextField();
         jCalendar2 = new com.toedter.calendar.JCalendar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        CreacC = new javax.swing.JButton();
+        ModdearC = new javax.swing.JButton();
         CB_Cars = new javax.swing.JComboBox<>();
         FF_CostoRe = new javax.swing.JFormattedTextField();
         FF_CostoReMod = new javax.swing.JFormattedTextField();
@@ -94,6 +95,10 @@ public class Main extends javax.swing.JFrame {
         TXT_Sim = new javax.swing.JLabel();
         CB_SelecE = new javax.swing.JComboBox<>();
         CB_SelecC = new javax.swing.JComboBox<>();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TA_EstadoFinal = new javax.swing.JTextArea();
         Tabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -260,22 +265,22 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Crear Carro");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        CreacC.setText("Crear Carro");
+        CreacC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                CreacCMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CreacC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CreacCActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Modificar Carro");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        ModdearC.setText("Modificar Carro");
+        ModdearC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                ModdearCMouseClicked(evt);
             }
         });
 
@@ -328,14 +333,14 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(CarrosLayout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addGroup(CarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
+                                    .addComponent(CreacC)
                                     .addGroup(CarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(CarrosLayout.createSequentialGroup()
                                             .addComponent(TXT_Date1)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton2))
+                                            .addComponent(ModdearC))
                                         .addGroup(CarrosLayout.createSequentialGroup()
                                             .addGroup(CarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(CarrosLayout.createSequentialGroup()
@@ -378,14 +383,14 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(CarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(CarrosLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2))
+                                .addComponent(ModdearC))
                             .addGroup(CarrosLayout.createSequentialGroup()
                                 .addGroup(CarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TXT_Date)
                                     .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(CarrosLayout.createSequentialGroup()
                                         .addGap(76, 76, 76)
-                                        .addComponent(jButton1)))
+                                        .addComponent(CreacC)))
                                 .addGroup(CarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(CarrosLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
@@ -414,20 +419,44 @@ public class Main extends javax.swing.JFrame {
         TXT_Sim.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         TXT_Sim.setText("SIMULACION");
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("INICIAR SIMULACION");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        TA_EstadoFinal.setEditable(false);
+        TA_EstadoFinal.setColumns(20);
+        TA_EstadoFinal.setRows(5);
+        jScrollPane3.setViewportView(TA_EstadoFinal);
+
         javax.swing.GroupLayout SimulacionLayout = new javax.swing.GroupLayout(Simulacion);
         Simulacion.setLayout(SimulacionLayout);
         SimulacionLayout.setHorizontalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SimulacionLayout.createSequentialGroup()
-                .addGap(455, 455, 455)
-                .addComponent(TXT_Sim)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(SimulacionLayout.createSequentialGroup()
                 .addGap(199, 199, 199)
                 .addComponent(CB_SelecE, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(CB_SelecC, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(270, 270, 270))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(SimulacionLayout.createSequentialGroup()
+                .addGroup(SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SimulacionLayout.createSequentialGroup()
+                        .addGap(455, 455, 455)
+                        .addComponent(TXT_Sim))
+                    .addGroup(SimulacionLayout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(218, 218, 218)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         SimulacionLayout.setVerticalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,22 +467,36 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CB_SelecE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CB_SelecC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(613, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(128, 128, 128)
+                .addGroup(SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Simulacion", Simulacion);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre Del Empleado", "Carro a Reparar", "Exito"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout TablaLayout = new javax.swing.GroupLayout(Tabla);
@@ -462,19 +505,20 @@ public class Main extends javax.swing.JFrame {
             TablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TablaLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(546, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         TablaLayout.setVerticalGroup(
             TablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TablaLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Tabla", Tabla);
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         TA_Bitacora.setViewportView(jTextArea1);
@@ -484,16 +528,16 @@ public class Main extends javax.swing.JFrame {
         BitacoraLayout.setHorizontalGroup(
             BitacoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BitacoraLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(TA_Bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(TA_Bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 1141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         BitacoraLayout.setVerticalGroup(
             BitacoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BitacoraLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(TA_Bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(TA_Bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacora", Bitacora);
@@ -550,6 +594,7 @@ public class Main extends javax.swing.JFrame {
         ae.escribirArchivo();
         
         CB_Empleados.removeAll();
+        CB_SelecE.removeAll();
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
         
         CB_Empleados.setModel(modelo);
@@ -570,6 +615,7 @@ public class Main extends javax.swing.JFrame {
         ae.escribirArchivo();
         
         CB_Empleados.removeAll();
+        CB_SelecE.removeAll();
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
         
         CB_Empleados.setModel(modelo);
@@ -592,11 +638,11 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_ModeloModActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CreacCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreacCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CreacCActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void CreacCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreacCMouseClicked
         // TODO add your handling code here:
         Random r = new Random();
         
@@ -624,9 +670,11 @@ public class Main extends javax.swing.JFrame {
         ac.setCarro(c);
         ac.escribirArchivo();
         CB_Cars.removeAll();
+        CB_SelecC.removeAll();
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(ac.getListaCarros().toArray());
         
         CB_Cars.setModel(modelo);
+        CB_SelecC.setModel(modelo);
         
         DefaultTableModel model = (DefaultTableModel) ListaCarros.getModel();
         model.setRowCount(0);
@@ -642,7 +690,7 @@ public class Main extends javax.swing.JFrame {
         TF_Modelo.setText("");
         FF_CostoRe.setText("");
         
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_CreacCMouseClicked
 
     private void CB_CarsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CB_CarsItemStateChanged
         // TODO add your handling code here:
@@ -656,7 +704,7 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CB_CarsItemStateChanged
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void ModdearCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModdearCMouseClicked
         // TODO add your handling code here:
         int select = CB_Cars.getSelectedIndex();
         
@@ -679,9 +727,11 @@ public class Main extends javax.swing.JFrame {
         ac.escribirArchivo();
         
         CB_Cars.removeAll();
+        CB_SelecC.removeAll();
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(ac.getListaCarros().toArray());
         
         CB_Cars.setModel(modelo);
+        CB_SelecC.setModel(modelo);
         
         DefaultTableModel model = (DefaultTableModel) ListaCarros.getModel();
         model.setRowCount(0);
@@ -692,7 +742,11 @@ public class Main extends javax.swing.JFrame {
             model.addRow(newrow);
         }
         ListaCarros.setModel(model);
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_ModdearCMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -738,6 +792,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CB_SelecC;
     private javax.swing.JComboBox<String> CB_SelecE;
     private javax.swing.JPanel Carros;
+    private javax.swing.JButton CreacC;
     private javax.swing.JToggleButton CreatE;
     private javax.swing.JButton DeleteE;
     private javax.swing.JPanel Empleados;
@@ -745,8 +800,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField FF_CostoRe;
     private javax.swing.JFormattedTextField FF_CostoReMod;
     private javax.swing.JTable ListaCarros;
+    private javax.swing.JButton ModdearC;
     private javax.swing.JPanel Simulacion;
     private javax.swing.JScrollPane TA_Bitacora;
+    private javax.swing.JTextArea TA_EstadoFinal;
     private javax.swing.JTextField TF_Marca;
     private javax.swing.JTextField TF_MarcaMod;
     private javax.swing.JTextField TF_Modelo;
@@ -769,11 +826,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel TXT_Sim;
     private javax.swing.JPanel Tabla;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
