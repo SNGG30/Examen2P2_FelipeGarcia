@@ -1,12 +1,12 @@
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author felip
@@ -64,6 +64,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         CreatE.setText("Crear");
+        CreatE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CreatEMouseClicked(evt);
+            }
+        });
 
         TXT_CrearE1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         TXT_CrearE1.setText("ELIMINAR EMPLEADO");
@@ -216,6 +221,14 @@ public class Main extends javax.swing.JFrame {
     private void FF_AgeEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FF_AgeEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FF_AgeEActionPerformed
+
+    private void CreatEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreatEMouseClicked
+        // TODO add your handling code here:
+        Random r = new Random();
+        
+        Empleados e = new Empleados();
+        
+    }//GEN-LAST:event_CreatEMouseClicked
 
     /**
      * @param args the command line arguments
