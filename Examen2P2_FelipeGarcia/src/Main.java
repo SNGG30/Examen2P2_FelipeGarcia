@@ -27,6 +27,7 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
         
         CB_Empleados.setModel(modelo);
+        CB_SelecE.setModel(modelo);
         
         adminCarros ac = new adminCarros("./Carros.adm");
         ac.cargarArchivo();
@@ -90,10 +91,15 @@ public class Main extends javax.swing.JFrame {
         FF_CostoRe = new javax.swing.JFormattedTextField();
         FF_CostoReMod = new javax.swing.JFormattedTextField();
         Simulacion = new javax.swing.JPanel();
+        TXT_Sim = new javax.swing.JLabel();
+        CB_SelecE = new javax.swing.JComboBox<>();
+        CB_SelecC = new javax.swing.JComboBox<>();
         Tabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         Bitacora = new javax.swing.JPanel();
+        TA_Bitacora = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Taller");
@@ -405,15 +411,34 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Carros", Carros);
 
+        TXT_Sim.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        TXT_Sim.setText("SIMULACION");
+
         javax.swing.GroupLayout SimulacionLayout = new javax.swing.GroupLayout(Simulacion);
         Simulacion.setLayout(SimulacionLayout);
         SimulacionLayout.setHorizontalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1214, Short.MAX_VALUE)
+            .addGroup(SimulacionLayout.createSequentialGroup()
+                .addGap(455, 455, 455)
+                .addComponent(TXT_Sim)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(SimulacionLayout.createSequentialGroup()
+                .addGap(199, 199, 199)
+                .addComponent(CB_SelecE, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addComponent(CB_SelecC, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(270, 270, 270))
         );
         SimulacionLayout.setVerticalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGroup(SimulacionLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(TXT_Sim)
+                .addGap(47, 47, 47)
+                .addGroup(SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CB_SelecE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CB_SelecC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(613, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Simulacion", Simulacion);
@@ -450,15 +475,25 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Tabla", Tabla);
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        TA_Bitacora.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout BitacoraLayout = new javax.swing.GroupLayout(Bitacora);
         Bitacora.setLayout(BitacoraLayout);
         BitacoraLayout.setHorizontalGroup(
             BitacoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1214, Short.MAX_VALUE)
+            .addGroup(BitacoraLayout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(TA_Bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(267, Short.MAX_VALUE))
         );
         BitacoraLayout.setVerticalGroup(
             BitacoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGroup(BitacoraLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(TA_Bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacora", Bitacora);
@@ -518,6 +553,7 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
         
         CB_Empleados.setModel(modelo);
+        CB_SelecE.setModel(modelo);
         TF_NameE.setText("");
         FF_AgeE.setText("");
     }//GEN-LAST:event_CreatEMouseClicked
@@ -537,6 +573,7 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
         
         CB_Empleados.setModel(modelo);
+        CB_SelecE.setModel(modelo);
     }//GEN-LAST:event_DeleteEMouseClicked
 
     private void TF_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_MarcaActionPerformed
@@ -698,6 +735,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel Bitacora;
     private javax.swing.JComboBox<String> CB_Cars;
     private javax.swing.JComboBox<String> CB_Empleados;
+    private javax.swing.JComboBox<String> CB_SelecC;
+    private javax.swing.JComboBox<String> CB_SelecE;
     private javax.swing.JPanel Carros;
     private javax.swing.JToggleButton CreatE;
     private javax.swing.JButton DeleteE;
@@ -707,6 +746,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField FF_CostoReMod;
     private javax.swing.JTable ListaCarros;
     private javax.swing.JPanel Simulacion;
+    private javax.swing.JScrollPane TA_Bitacora;
     private javax.swing.JTextField TF_Marca;
     private javax.swing.JTextField TF_MarcaMod;
     private javax.swing.JTextField TF_Modelo;
@@ -726,6 +766,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel TXT_Modelo;
     private javax.swing.JLabel TXT_Modelo1;
     private javax.swing.JLabel TXT_NameE;
+    private javax.swing.JLabel TXT_Sim;
     private javax.swing.JPanel Tabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -735,5 +776,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
