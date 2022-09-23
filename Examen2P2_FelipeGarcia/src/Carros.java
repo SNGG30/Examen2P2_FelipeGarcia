@@ -16,7 +16,7 @@ public class Carros implements Serializable{
     
     private String Marca;
     private String Modelo;
-    private int id;
+    private long id;
     private Date fabricacion;
     private String Estado;
     private int CostoRep;
@@ -25,7 +25,7 @@ public class Carros implements Serializable{
 
     public Carros() {
     }
-    public Carros(String Marca, String Modelo, int id, Date fabricacion, String Estado, int CostoRep) {
+    public Carros(String Marca, String Modelo, long id, Date fabricacion, String Estado, int CostoRep) {
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.id = id;
@@ -49,10 +49,10 @@ public class Carros implements Serializable{
         this.Modelo = Modelo;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     
@@ -79,7 +79,7 @@ public class Carros implements Serializable{
 
     @Override
     public String toString() {
-        return "Carros{" + "Marca=" + Marca + ", Modelo=" + Modelo + ", id=" + id + ", fabricacion=" + fabricacion + ", Estado=" + Estado + ", CostoRep=" + CostoRep + '}';
+        return Marca + "|" + Modelo;
     }
     
     

@@ -47,7 +47,7 @@ public class adminCarros {
     }
 
     //extra mutador
-    public void setPersona(Carros c) {
+    public void setCarro(Carros c) {
         this.listaCarros.add(c);
     }
 
