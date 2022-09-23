@@ -96,6 +96,7 @@ public class Main extends javax.swing.JFrame {
         Bitacora = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Taller");
 
         TXT_CrearE.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         TXT_CrearE.setText("CREAR EMPLEADO");
@@ -266,6 +267,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButton2.setText("Modificar Carro");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         CB_Cars.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -612,6 +618,44 @@ public class Main extends javax.swing.JFrame {
             jCalendar2.setDate(temp.getFabricacion());
         }
     }//GEN-LAST:event_CB_CarsItemStateChanged
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        int select = CB_Cars.getSelectedIndex();
+        
+        String Marca = TF_MarcaMod.getText();
+        String Modelo = TF_ModeloMod.getText();
+        String CostoRe = FF_CostoReMod.getText();
+        int CostoRep = Integer.parseInt(CostoRe);       
+        Date fabricacion = jCalendar2.getDate();
+        
+        adminCarros ac = new adminCarros("./Carros.adm");
+        ac.cargarArchivo();
+        
+        
+        ArrayList <Carros> temp = ac.getListaCarros();
+        temp.get(select).setMarca(Marca);
+        temp.get(select).setModelo(Modelo);
+        temp.get(select).setCostoRep(CostoRep);
+        temp.get(select).setFabricacion(fabricacion);
+        ac.setListaCarros(temp);
+        ac.escribirArchivo();
+        
+        CB_Cars.removeAll();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(ac.getListaCarros().toArray());
+        
+        CB_Cars.setModel(modelo);
+        
+        DefaultTableModel model = (DefaultTableModel) ListaCarros.getModel();
+        model.setRowCount(0);
+        
+        ArrayList<Carros> tempcar = ac.getListaCarros();
+        for(int i = 0; i < tempcar.size(); i++){
+            Object[] newrow = {tempcar.get(i).getId(), tempcar.get(i).getMarca(), tempcar.get(i).getModelo(), tempcar.get(i).getCostoRep()};
+            model.addRow(newrow);
+        }
+        ListaCarros.setModel(model);
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
