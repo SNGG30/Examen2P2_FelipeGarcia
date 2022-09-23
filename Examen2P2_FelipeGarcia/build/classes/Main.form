@@ -83,7 +83,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="DeleteE" min="-2" pref="111" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -107,7 +107,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="CB_Empleados" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="71" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="DeleteE" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -170,10 +170,13 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="DeleteE">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DeleteEMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

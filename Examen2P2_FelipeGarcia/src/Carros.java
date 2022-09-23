@@ -76,6 +76,11 @@ public class Carros implements Serializable{
     public void setCostoRep(int CostoRep) {
         this.CostoRep = CostoRep;
     }
+
+    @Override
+    public String toString() {
+        return "Carros{" + "Marca=" + Marca + ", Modelo=" + Modelo + ", id=" + id + ", fabricacion=" + fabricacion + ", Estado=" + Estado + ", CostoRep=" + CostoRep + '}';
+    }
     
     
 }

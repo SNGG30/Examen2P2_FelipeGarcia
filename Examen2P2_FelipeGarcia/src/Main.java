@@ -46,7 +46,7 @@ public class Main extends javax.swing.JFrame {
         CreatE = new javax.swing.JToggleButton();
         TXT_CrearE1 = new javax.swing.JLabel();
         CB_Empleados = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        DeleteE = new javax.swing.JButton();
         Carros = new javax.swing.JPanel();
         Simulacion = new javax.swing.JPanel();
         Tabla = new javax.swing.JPanel();
@@ -80,7 +80,12 @@ public class Main extends javax.swing.JFrame {
         TXT_CrearE1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         TXT_CrearE1.setText("ELIMINAR EMPLEADO");
 
-        jButton1.setText("Eliminar");
+        DeleteE.setText("Eliminar");
+        DeleteE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeleteEMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout EmpleadosLayout = new javax.swing.GroupLayout(Empleados);
         Empleados.setLayout(EmpleadosLayout);
@@ -113,7 +118,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(EmpleadosLayout.createSequentialGroup()
                 .addGap(281, 281, 281)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DeleteE, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EmpleadosLayout.setVerticalGroup(
@@ -134,7 +139,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(CB_Empleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(DeleteE)
                 .addGap(52, 52, 52))
         );
 
@@ -237,25 +242,55 @@ public class Main extends javax.swing.JFrame {
         
         String Nombre = TF_NameE.getText();
         String Age = FF_AgeE.getText();
-        
+
         int Edad = Integer.parseInt(Age);
         if (Edad < 0){
             Edad = 1;
         }
         
         long id = 1+r.nextInt(1000);
+        adminEmpleados ae = new adminEmpleados("./Empleados.adm");
+        ae.cargarArchivo();
+        ArrayList <Empleados> temp = ae.getListaEmpleados();
+        for (int i = 0; i < temp.size(); i++) {
+            if(id == temp.get(i).getId()){
+                id = 1+r.nextInt(1000);
+                i = 0;
+            }
+        }
         
         int exito = 0;
         
         e = new Empleados(Nombre, Edad, id, exito);
         
-        adminEmpleados ae = new adminEmpleados("./Empleados.adm");
-        ae.cargarArchivo();
+        
         ae.setEmpleado(e);
         ae.escribirArchivo();
+        
+        CB_Empleados.removeAll();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
+        
+        CB_Empleados.setModel(modelo);
         TF_NameE.setText("");
         FF_AgeE.setText("");
     }//GEN-LAST:event_CreatEMouseClicked
+
+    private void DeleteEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteEMouseClicked
+        // TODO add your handling code here:
+        int deleteE = CB_Empleados.getSelectedIndex();
+        
+        adminEmpleados ae = new adminEmpleados("./Empleados.adm");
+        ae.cargarArchivo();
+        ArrayList <Empleados> temp = ae.getListaEmpleados();
+        temp.remove(deleteE);
+        ae.setListaEmpleados(temp);
+        ae.escribirArchivo();
+        
+        CB_Empleados.removeAll();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
+        
+        CB_Empleados.setModel(modelo);
+    }//GEN-LAST:event_DeleteEMouseClicked
 
     /**
      * @param args the command line arguments
@@ -299,6 +334,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CB_Empleados;
     private javax.swing.JPanel Carros;
     private javax.swing.JToggleButton CreatE;
+    private javax.swing.JButton DeleteE;
     private javax.swing.JPanel Empleados;
     private javax.swing.JFormattedTextField FF_AgeE;
     private javax.swing.JPanel Simulacion;
@@ -308,7 +344,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel TXT_CrearE1;
     private javax.swing.JLabel TXT_NameE;
     private javax.swing.JPanel Tabla;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
