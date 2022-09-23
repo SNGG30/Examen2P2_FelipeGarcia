@@ -29,7 +29,7 @@ public class adminEmpleados {
         return listaEmpleados;
     }
 
-    public void setListaPersonas(ArrayList<Empleados> listaEmpleados) {
+    public void setListaEmpleados(ArrayList<Empleados> listaEmpleados) {
         this.listaEmpleados = listaEmpleados;
     }
 
@@ -47,7 +47,7 @@ public class adminEmpleados {
     }
 
     //extra mutador
-    public void setPersona(Empleados e) {
+    public void setEmpleado(Empleados e) {
         this.listaEmpleados.add(e);
     }
 

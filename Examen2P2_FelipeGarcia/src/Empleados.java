@@ -56,6 +56,12 @@ public class Empleados implements Serializable{
     public void setExito(int exito) {
         this.exito = exito;
     }
+
+    @Override
+    public String toString() {
+        return Nombre;
+    }
+    
     
     
 }

@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.DefaultComboBoxModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,6 +19,12 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        
+        adminEmpleados ae = new adminEmpleados("./Empleados.adm");
+        ae.cargarArchivo();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(ae.getListaEmpleados().toArray());
+        
+        CB_Empleados.setModel(modelo);
     }
 
     /**
@@ -228,6 +235,26 @@ public class Main extends javax.swing.JFrame {
         
         Empleados e = new Empleados();
         
+        String Nombre = TF_NameE.getText();
+        String Age = FF_AgeE.getText();
+        
+        int Edad = Integer.parseInt(Age);
+        if (Edad < 0){
+            Edad = 1;
+        }
+        
+        long id = 1+r.nextInt(1000);
+        
+        int exito = 0;
+        
+        e = new Empleados(Nombre, Edad, id, exito);
+        
+        adminEmpleados ae = new adminEmpleados("./Empleados.adm");
+        ae.cargarArchivo();
+        ae.setEmpleado(e);
+        ae.escribirArchivo();
+        TF_NameE.setText("");
+        FF_AgeE.setText("");
     }//GEN-LAST:event_CreatEMouseClicked
 
     /**
