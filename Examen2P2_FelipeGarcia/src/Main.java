@@ -45,6 +45,9 @@ public class Main extends javax.swing.JFrame {
             model.addRow(newrow);
         }
         ListaCarros.setModel(model);
+        
+        DefaultTableModel modelo3 = (DefaultTableModel) TablaOP.getModel();
+        modelo3.setRowCount(0);
     }
 
     /**
@@ -101,7 +104,7 @@ public class Main extends javax.swing.JFrame {
         TA_EstadoFinal = new javax.swing.JTextArea();
         Tabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaOP = new javax.swing.JTable();
         Bitacora = new javax.swing.JPanel();
         TA_Bitacora = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -483,7 +486,7 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Simulacion", Simulacion);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaOP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -502,7 +505,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaOP);
 
         javax.swing.GroupLayout TablaLayout = new javax.swing.GroupLayout(Tabla);
         Tabla.setLayout(TablaLayout);
@@ -767,9 +770,6 @@ public class Main extends javax.swing.JFrame {
         ae.cargarArchivo();
         
         
-        ArrayList <Empleados> ListE = ae.getListaEmpleados();
-        ArrayList <Carros> ListC = ac.getListaCarros();
-        
         Hilo h = new Hilo(PB_Pago, ac.getListaCarros().get(selectedIndexCar).getCostoRep());
         h.start();
         
@@ -819,7 +819,29 @@ public class Main extends javax.swing.JFrame {
             }
         }
         
+        ac.escribirArchivo();
+        ae.escribirArchivo();
         
+        int rep = ae.getListaEmpleados().get(selectedIndexEmp).getExito();
+        
+        System.out.println(rep);
+        String Operacion = "";
+        if(exito == true){
+            Operacion = "exito";
+        }else if(exito == false){
+            Operacion = "fallo";
+        }
+        
+        long id = ac.getListaCarros().get(selectedIndexCar).getId();
+        TA_EstadoFinal.setText("El empleado " + e.toString() + " inicio la reparacion del carro " + c.toString() + ", de ID " + id + ", la reparacion fue un " + Operacion);
+        
+        DefaultTableModel model = (DefaultTableModel) TablaOP.getModel();
+        
+        
+            Object[] newrow = {e.toString(), c.toString(), Operacion};
+            model.addRow(newrow);
+        
+        TablaOP.setModel(model);
     }//GEN-LAST:event_InitSimulacionMouseClicked
 
     /**
@@ -901,13 +923,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel TXT_NameE;
     private javax.swing.JLabel TXT_Sim;
     private javax.swing.JPanel Tabla;
+    private javax.swing.JTable TablaOP;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
