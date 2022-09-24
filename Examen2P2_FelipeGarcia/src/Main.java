@@ -95,8 +95,8 @@ public class Main extends javax.swing.JFrame {
         TXT_Sim = new javax.swing.JLabel();
         CB_SelecE = new javax.swing.JComboBox<>();
         CB_SelecC = new javax.swing.JComboBox<>();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jButton1 = new javax.swing.JButton();
+        PB_Pago = new javax.swing.JProgressBar();
+        InitSimulacion = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TA_EstadoFinal = new javax.swing.JTextArea();
         Tabla = new javax.swing.JPanel();
@@ -419,11 +419,16 @@ public class Main extends javax.swing.JFrame {
         TXT_Sim.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         TXT_Sim.setText("SIMULACION");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("INICIAR SIMULACION");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        InitSimulacion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        InitSimulacion.setText("INICIAR SIMULACION");
+        InitSimulacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                InitSimulacionMouseClicked(evt);
+            }
+        });
+        InitSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                InitSimulacionActionPerformed(evt);
             }
         });
 
@@ -444,7 +449,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(270, 270, 270))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PB_Pago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(SimulacionLayout.createSequentialGroup()
                 .addGroup(SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,7 +458,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(TXT_Sim))
                     .addGroup(SimulacionLayout.createSequentialGroup()
                         .addGap(180, 180, 180)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(InitSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(218, 218, 218)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -468,10 +473,10 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(CB_SelecE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CB_SelecC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PB_Pago, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(128, 128, 128)
                 .addGroup(SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InitSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -744,9 +749,78 @@ public class Main extends javax.swing.JFrame {
         ListaCarros.setModel(model);
     }//GEN-LAST:event_ModdearCMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void InitSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InitSimulacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_InitSimulacionActionPerformed
+
+    private void InitSimulacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InitSimulacionMouseClicked
+        // TODO add your handling code here:
+        
+        int selectedIndexEmp = CB_SelecE.getSelectedIndex();
+        int selectedIndexCar = CB_SelecC.getSelectedIndex();
+        
+        
+        adminCarros ac = new adminCarros("./Carros.adm");
+        ac.cargarArchivo();
+        
+        adminEmpleados ae = new adminEmpleados("./Empleados.adm");
+        ae.cargarArchivo();
+        
+        
+        ArrayList <Empleados> ListE = ae.getListaEmpleados();
+        ArrayList <Carros> ListC = ac.getListaCarros();
+        
+        Hilo h = new Hilo(PB_Pago, ac.getListaCarros().get(selectedIndexCar).getCostoRep());
+        h.start();
+        
+        Empleados e = (Empleados) CB_SelecE.getSelectedItem();
+        Carros c = (Carros) CB_SelecC.getSelectedItem();
+        
+        int reparados = e.getExito();
+        boolean exito = false;
+        Random r = new Random();
+        int probabilidad = 1+r.nextInt(100);
+        
+        if(reparados <= 5){
+            if(probabilidad <= 30){
+                exito = false;
+                ac.getListaCarros().get(selectedIndexCar).setEstado("en espera de pago de reparación");
+            }else{
+                exito = true;
+                int exitasos = ae.getListaEmpleados().get(selectedIndexEmp).getExito() + 1;
+                ae.getListaEmpleados().get(selectedIndexEmp).setExito(exitasos);
+            }
+        }else if(reparados >= 6 && reparados <= 15 ){
+            if(probabilidad <= 22){
+                exito = false;
+                ac.getListaCarros().get(selectedIndexCar).setEstado("en espera de pago de reparación");
+            }else{
+                exito = true;
+                int exitasos = ae.getListaEmpleados().get(selectedIndexEmp).getExito() + 1;
+                ae.getListaEmpleados().get(selectedIndexEmp).setExito(exitasos);
+            }
+        }else if(reparados >= 16 && reparados <= 30 ){
+            if(probabilidad <= 13){
+                exito = false;
+                ac.getListaCarros().get(selectedIndexCar).setEstado("en espera de pago de reparación");
+            }else{
+                exito = true;
+                int exitasos = ae.getListaEmpleados().get(selectedIndexEmp).getExito() + 1;
+                ae.getListaEmpleados().get(selectedIndexEmp).setExito(exitasos);
+            }
+        }else if(reparados >= 31){
+            if(probabilidad <= 7){
+                exito = false;
+                ac.getListaCarros().get(selectedIndexCar).setEstado("en espera de pago de reparación");
+            }else{
+                exito = true;
+                int exitasos = ae.getListaEmpleados().get(selectedIndexEmp).getExito() + 1;
+                ae.getListaEmpleados().get(selectedIndexEmp).setExito(exitasos);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_InitSimulacionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -799,8 +873,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField FF_AgeE;
     private javax.swing.JFormattedTextField FF_CostoRe;
     private javax.swing.JFormattedTextField FF_CostoReMod;
+    private javax.swing.JButton InitSimulacion;
     private javax.swing.JTable ListaCarros;
     private javax.swing.JButton ModdearC;
+    private javax.swing.JProgressBar PB_Pago;
     private javax.swing.JPanel Simulacion;
     private javax.swing.JScrollPane TA_Bitacora;
     private javax.swing.JTextArea TA_EstadoFinal;
@@ -825,10 +901,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel TXT_NameE;
     private javax.swing.JLabel TXT_Sim;
     private javax.swing.JPanel Tabla;
-    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
